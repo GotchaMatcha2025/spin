@@ -1,0 +1,84 @@
+/* Fran X Gotcha matcha spin — the look of gotchamatcha.sg (Website/assets/site.css): white ground, forest ink, Alata text,
+   Gotcha hand lettering for short titles only (letters + . , ! ? ' - @: never digits). Phone only (owner, 11 Nov 2026). */
+@font-face{font-family:"Gotcha";src:url(fonts/gotcha.woff) format("woff");font-display:swap}
+@font-face{font-family:"Alata";src:url(fonts/alata.woff2) format("woff2");font-display:swap}
+:root{
+  --forest:#24382C; --ink-2:#4A5A4F; --soft:#F3F6F2; --line:rgba(36,56,44,.14); --walnut:#5C3D2A; --beige:#D8C2A8; --glow:#F2B15C;
+  --matcha:#DCE8D2; --gone:#E4E7E2;
+  --hand:"Gotcha","Bradley Hand","Segoe Print",cursive; --body:"Alata",system-ui,-apple-system,"Segoe UI",sans-serif;
+  /* numbers: Alata's "1" reads as "l" at small sizes, so figures use the phone's own font */
+  --num:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box}
+*{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{background:#fff;color:var(--forest);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
+  -webkit-tap-highlight-color:transparent;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid #BE6E4A;outline-offset:3px;border-radius:4px}
+[hidden]{display:none!important}
+.n{font-family:var(--num);font-variant-numeric:tabular-nums}
+.wrap{max-width:440px;margin:0 auto;padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
+
+.hd{height:60px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);
+  padding-top:env(safe-area-inset-top)}
+.hd img{height:30px;width:auto}
+.hd a{font-size:.86rem;color:var(--ink-2);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+
+main{padding:1.1rem 0 1.6rem;text-align:center}
+.kicker{font-size:.78rem;letter-spacing:.12em;color:var(--walnut)}
+.ht{font-family:var(--hand);font-weight:400;font-size:2.5rem;line-height:.95;letter-spacing:.01em;margin:.35rem 0 .2rem}
+.ht.sm{font-size:2.1rem}
+
+.wheel{position:relative;width:min(270px,74vw);margin:.7rem auto .1rem}
+.wheel svg{width:100%;height:auto;overflow:visible}
+.rot{transform-box:view-box;transform-origin:160px 196px}
+.rot.go{transition:transform 4.6s cubic-bezier(.12,.66,.1,1)}
+.wl{font-family:var(--hand);font-size:17px;fill:var(--forest)}
+.wl.alt{font-family:var(--num);font-size:13px;font-weight:600}
+.wl.inv{fill:#fff}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:52px;padding:.75rem 1.6rem;border:0;border-radius:999px;
+  background:var(--forest);color:#fff;font-family:var(--body);font-size:1.1rem;cursor:pointer;width:100%;max-width:280px;margin-top:.8rem}
+.btn:active{transform:scale(.98)}
+.btn[disabled]{background:var(--beige);color:var(--walnut);cursor:default;transform:none}
+.btn.ghost{background:transparent;color:var(--forest);box-shadow:inset 0 0 0 1.5px currentColor;font-size:1rem;min-height:48px}
+.msg{min-height:1.4em;margin:.6rem auto 0;font-size:.92rem;color:var(--walnut);max-width:30ch}
+.msg:empty{min-height:0;margin:0}
+.msg button{border:0;background:none;color:var(--forest);text-decoration:underline;text-underline-offset:3px;padding:10px 4px;margin:-10px 0;cursor:pointer}
+.fine{font-size:.8rem;line-height:1.5;color:var(--ink-2);max-width:34ch;margin:.9rem auto 0}
+.fine a{color:var(--forest);text-underline-offset:3px;display:inline-block;padding:8px 0;margin:-8px 0}
+
+/* the voucher (shown after the spin, and again on this phone later) */
+.voucher{margin:1.2rem auto 0;max-width:340px;background:var(--forest);color:#fff;border-radius:22px;padding:1.3rem 1.2rem 1.3rem;text-align:center;position:relative}
+.voucher .di{position:absolute;right:10px;top:-46px;width:84px}
+.voucher .t{font-family:var(--hand);font-size:2.2rem;line-height:1}
+.voucher .r{font-size:1.5rem;line-height:1.2;margin-top:.35rem}
+.voucher .h{font-size:.92rem;color:rgba(255,255,255,.88)}
+.voucher .qr{background:#fff;border-radius:16px;padding:12px;width:min(230px,64vw);margin:1rem auto .5rem}
+.voucher .qr svg{width:100%;height:auto}
+.voucher .code{font-family:var(--num);font-size:1.05rem;letter-spacing:.14em}
+.voucher .shot{margin-top:.8rem;font-size:1rem}
+.voucher .when{margin-top:.25rem;font-size:.86rem;color:rgba(255,255,255,.88)}
+.club{margin:1.6rem auto 0;padding-top:1.3rem;border-top:1px solid var(--line);max-width:330px;display:grid;gap:.6rem;justify-items:center}
+.club p{font-size:.95rem}
+
+.wrapup{padding:1rem 0}
+.wrapup .cat{width:130px;margin:0 auto .3rem}
+
+/* the chances: smallest readable text, footer only (owner, 11 Nov) */
+.foot{border-top:1px solid var(--line);padding:1.1rem 0 calc(1.4rem + env(safe-area-inset-bottom));font-size:.7rem;line-height:1.5;color:var(--ink-2);text-align:center}
+.foot p+p{margin-top:.35rem}
+.foot a{color:var(--forest);text-underline-offset:2px}
+
+/* rules + voucher pages */
+.page{padding:1.2rem 0 2rem;text-align:left}
+.back{display:inline-flex;align-items:center;min-height:44px;font-size:.9rem;color:var(--ink-2);text-decoration:none}
+.page .ht{margin:.3rem 0 1rem}
+.page section{padding:.8rem 0;border-top:1px solid var(--line)}
+.page h2{font-weight:400;font-size:1.02rem}
+.page p{font-size:.9rem;line-height:1.6;color:var(--ink-2);margin-top:.2rem}
+
+@media (prefers-reduced-motion:reduce){.rot.go{transition:none}.btn:active{transform:none}}

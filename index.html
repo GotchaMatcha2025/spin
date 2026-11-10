@@ -1,31 +1,38 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>fran x gotcha matcha · give it a spin</title>
+<meta name="description" content="spin at the fran x gotcha matcha booth: every spin wins a voucher. run by gotcha matcha pte ltd.">
 <meta name="robots" content="noindex">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="icon" type="image/svg+xml" href="assets/img/logo-hand.svg">
-<style>
-@font-face{font-family:"Gotcha";src:url(assets/fonts/gotcha.woff) format("woff");font-display:swap}
-@font-face{font-family:"Alata";src:url(assets/fonts/alata.woff2) format("woff2");font-display:swap}
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#fff;color:#24382C;font-family:"Alata",system-ui,-apple-system,sans-serif;line-height:1.6;text-align:center;
-  padding:max(24px,env(safe-area-inset-top)) max(20px,env(safe-area-inset-right)) 40px max(20px,env(safe-area-inset-left))}
-img{display:block;max-width:100%;margin:0 auto}
-.logo{height:34px;width:auto;margin:0 auto 2.4rem}
-.cat{width:140px;margin-bottom:.6rem}
-.k{font-size:.8rem;letter-spacing:.14em;color:#5C3D2A}
-h1{font-family:"Gotcha","Bradley Hand",cursive;font-weight:400;font-size:2.6rem;line-height:.95;margin:.4rem 0 .8rem}
-p{color:#4A5A4F}
-</style>
+<link rel="preload" href="assets/fonts/gotcha.woff" as="font" type="font/woff" crossorigin>
+<link rel="preload" href="assets/fonts/alata.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/spin.css?v=20261111">
+<script src="assets/vendor/qrcode-generator-1.4.4/qrcode.js" defer></script>
+<script src="assets/spin.js?v=20261111" defer></script>
 </head>
 <body>
-<img class="logo" src="assets/img/logo-lockup-green.webp" alt="gotcha matcha" width="719" height="220">
-<img class="cat" src="assets/img/cat-ok-gotcha-green.webp" alt="">
-<p class="k">fran x gotcha matcha</p>
-<h1>give it a spin!</h1>
-<p>spins open wed 11 nov, 9am.<br>see you at the booth.</p>
+<div class="wrap">
+  <header class="hd"><img src="assets/img/logo-lockup-green.webp" alt="gotcha matcha" width="719" height="220"><a href="rules/">how it works</a></header>
+  <main>
+    <p class="kicker">fran x gotcha matcha · <span class="n">11, 13 + 14 nov</span></p>
+    <h1 class="ht">give it a spin!</h1>
+    <div class="wheel" id="wheel" role="img" aria-label="prize wheel: cold foam, upsize, 1-for-1 and free drink slices, sized to each chance; the whisk on top points at your prize"></div>
+    <button class="btn" type="button" id="go" disabled>…</button>
+    <p class="msg" id="msg" role="status"></p>
+    <p class="sr-only" id="status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)"></p>
+    <div class="voucher" id="voucher" hidden></div>
+    <p class="fine">free · one spin per phone · <span class="n">13+</span> · prizes used from <span class="n">sun 15 nov</span> · <a href="rules/">how it works</a></p>
+    <noscript><p class="msg">turn on javascript to spin.</p></noscript>
+    <div class="club" id="club" hidden><p>first to hear about new drinks?</p><a class="btn ghost" href="https://wa.me/6580987457?text=Sign+me+up+as+a+member+now%21%20" rel="noopener">join the club on whatsapp</a></div>
+  </main>
+  <footer class="foot">
+    <p>chance per spin: free cold foam <span class="n">60%</span> · free upsize <span class="n">20%</span> · 1-for-1 <span class="n">15%</span> · free drink <span class="n">5%</span>. each day at most <span class="n">60</span> 1-for-1s and <span class="n">20</span> free drinks can be won; once gone, the other prizes share their chance. <span id="gone"></span></p>
+    <p>run by gotcha matcha pte ltd · <a href="rules/">how it works</a></p>
+  </footer>
+</div>
 </body>
 </html>
