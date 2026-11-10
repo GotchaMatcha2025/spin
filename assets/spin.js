@@ -256,6 +256,9 @@
     if (cached) { try { var v = JSON.parse(cached); turnTo(v.prize, false); showVoucher(v, false); } catch (e) { cached = null; } }
     post('/state', S.device ? { device: S.device } : {}).then(function (st) {
       if (!st.ok) throw new Error(st.code || 'state');
+      // the server's answer wins: a stored voucher it doesn't know for this phone (an old test, a copied value) is dropped.
+      // Only with no phone id at all (can't ask) does a stored copy stay; offline (the catch below) it stays too.
+      if (cached && !st.mine && S.device) { store.set(KEY_V, ''); $('voucher').hidden = true; $('voucher').innerHTML = ''; $('club').hidden = true; cached = null; S.rot = 0; }
       if (st.mine || !cached) render(st);
     }).catch(function () {
       if (cached) return;
