@@ -81,4 +81,34 @@ main{padding:1.1rem 0 1.6rem;text-align:center}
 .page h2{font-weight:400;font-size:1.02rem}
 .page p{font-size:.9rem;line-height:1.6;color:var(--ink-2);margin-top:.2rem}
 
-@media (prefers-reduced-motion:reduce){.rot.go{transition:none}.btn:active{transform:none}}
+
+
+/* ---------- fun (owner ~04:50: "just make it fun"): lights, wobble, pulse, glitter, shine. Never casino pictures or words. ---------- */
+.wheelwrap{position:relative;width:min(270px,74vw);margin:.7rem auto .1rem}
+.wheelwrap .wheel{width:100%;margin:0}
+.snd{position:absolute;right:-12px;top:-6px;z-index:2;border:0;background:none;font:.74rem var(--body);color:var(--ink-2);min-height:44px;padding:0 6px;cursor:pointer}
+.snd[aria-pressed=false]{color:#9AA59D;text-decoration:line-through}
+.bulb{fill:#fff;stroke:#24382C;stroke-width:1.4;transition:fill .08s}
+.bulb.on{fill:#F2B15C}
+.wheel.idle .bulb:nth-child(odd){animation:tw 1.4s steps(1) infinite}
+.wheel.idle .bulb:nth-child(even){animation:tw 1.4s steps(1) .7s infinite}
+@keyframes tw{0%{fill:#fff}50%{fill:#F2B15C}}
+.wheel.flash .bulb{animation:fl .22s steps(1) 7}
+@keyframes fl{0%{fill:#F2B15C}50%{fill:#fff}}
+.whisk{transform-box:view-box;transform-origin:160px 8px}
+.whisk.wob{animation:wob .14s ease-out}
+@keyframes wob{30%{transform:rotate(-10deg)}100%{transform:rotate(0)}}
+.btn.pulse{animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(242,177,92,.0)}50%{transform:scale(1.035);box-shadow:0 0 0 9px rgba(242,177,92,.32)}}
+.ht .tw{display:inline-block;font-family:var(--num);font-size:1.1rem;color:#F2B15C;vertical-align:.9em;margin:0 .25em;animation:twk 1.8s ease-in-out infinite}
+.ht .tw.b{animation-delay:.9s;vertical-align:.2em}
+@keyframes twk{0%,100%{transform:scale(.6) rotate(0);opacity:.5}50%{transform:scale(1.2) rotate(30deg);opacity:1}}
+.glitter{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:50}
+.voucher{overflow:hidden}
+.voucher.shine::after{content:"";position:absolute;inset:-20%;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.28) 48%,rgba(242,177,92,.25) 52%,transparent 65%);transform:translateX(-100%);animation:shine 1.3s .2s ease-out 2;pointer-events:none}
+@keyframes shine{to{transform:translateX(100%)}}
+.voucher .di{top:8px;right:8px;width:64px;opacity:.9}
+.voucher .test{margin-top:.6rem;font-size:.82rem;color:#F2B15C}
+.again{margin-top:.6rem;border:0;background:#fff;color:var(--forest);border-radius:999px;min-height:44px;padding:0 1.1rem;font:.9rem var(--body);cursor:pointer}
+@media (prefers-reduced-motion:reduce){.rot.go{transition:none}.btn:active{transform:none}
+  .wheel.idle .bulb,.wheel.flash .bulb,.whisk.wob,.btn.pulse,.ht .tw,.voucher.shine::after{animation:none}}

@@ -7,4 +7,4 @@ https://gotchamatcha2025.github.io/spin/ — **the printed QR opens this exact a
   prize; this page only turns the wheel to the answer and shows the voucher (QR + code). Phone layout only.
 - `rules/`: "how it works" (what GRA's trade-promotion class licence says players must see before they play).
 - `v/`: what the voucher QR opens. The staff redemption page replaces it before Sun 15 Nov.
-- Testing: open the page from disk (file://) or add `?api=staging` to use the staging server (its own database, always open).
+- Testing: open the page from disk (file://): it then uses the staging server (its own database, always open, `TEST-` codes). The public page never reaches staging.
