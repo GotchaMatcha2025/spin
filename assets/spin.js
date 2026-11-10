@@ -38,7 +38,7 @@
     if (!soundOn) return null;
     try {
       if (!AC) { var C = window.AudioContext || window.webkitAudioContext; if (!C) return null; AC = new C(); }
-      if (AC.state === 'suspended') AC.resume();
+      if (AC.state !== 'running') { var rs = AC.resume(); if (rs && rs.catch) rs.catch(function () {}); }   // Safari: 'interrupted' after a call
       return AC;
     } catch (e) { return null; }
   }
@@ -59,7 +59,7 @@
   }
   function setSound(on, quiet) {
     soundOn = on; store.set(KEY_SND, on ? 'on' : 'off');
-    var b = $('snd'); if (b) { b.setAttribute('aria-pressed', on ? 'true' : 'false'); b.textContent = on ? '♪ sound on' : '♪ sound off'; }
+    var b = $('snd'); if (b) { b.hidden = false; b.setAttribute('aria-pressed', on ? 'true' : 'false'); }
     if (on && !quiet) tick();
   }
 
@@ -146,6 +146,7 @@
   function burst(x, y, n, spread) {
     if (reduce) return;
     if (!cv) { cv = document.createElement('canvas'); cv.className = 'glitter'; cv.setAttribute('aria-hidden', 'true'); document.body.appendChild(cv); ctx = cv.getContext('2d'); }
+    if (!ctx) return;   // no canvas (memory cap, blocked): no glitter, everything else still runs
     var dpr = Math.min(window.devicePixelRatio || 1, 2);
     cv.width = window.innerWidth * dpr; cv.height = window.innerHeight * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     for (var k = 0; k < n; k++) {
@@ -223,13 +224,15 @@
   }
   function celebrate(v) {   // lights flash, ding ding ding, glitter from the bowl; then the voucher slides into view with a second burst
     var big = !!P[v.prize].big;
-    lights('flash'); ding(big);
-    if (navigator.vibrate) try { navigator.vibrate(big ? [40, 60, 40, 60, 80] : [40, 60, 40]); } catch (e) { /* fine */ }
-    var c = centreOf($('wheel')); burst(c[0], c[1], big ? 180 : 100, big ? 12 : 9);
-    setTimeout(function () {
+    setTimeout(function () {   // the voucher first: no effect below can stop it from showing
       showVoucher(v, true); lights('idle');
-      setTimeout(function () { var r = $('voucher').getBoundingClientRect(); burst(r.left + r.width / 2, Math.max(40, r.top + 20), big ? 90 : 50, 7); }, 650);
+      setTimeout(function () { try { var r = $('voucher').getBoundingClientRect(); burst(r.left + r.width / 2, Math.max(40, r.top + 20), big ? 90 : 50, 7); } catch (e) { /* fine */ } }, 650);
     }, 1100);
+    try {
+      lights('flash'); ding(big);
+      if (navigator.vibrate) navigator.vibrate(big ? [40, 60, 40, 60, 80] : [40, 60, 40]);
+      var c = centreOf($('wheel')); burst(c[0], c[1], big ? 180 : 100, big ? 12 : 9);
+    } catch (e) { /* the fun is optional */ }
   }
 
   // ---------- flow ----------
@@ -245,6 +248,7 @@
     else if (st.status === 'later') {
       setBtn('spins open ' + (st.next ? sgt(st.next.opens) : 'soon'), false); msg('see you at the fran x gotcha matcha booth.');
       var wait = st.next ? Date.parse(st.next.opens) - Date.now() + 2000 : 0;   // a page left open turns on by itself at opening time
+      if (st.next && wait <= 0 && wait > -60000) wait = 5000;   // this phone's clock runs fast: ask again shortly
       if (wait > 0 && wait < 86400000) S.timer = setTimeout(load, wait);
     }
     else if (st.status === 'over') { setBtn('spins have closed', false); msg('that\'s a wrap. thanks for spinning!'); $('club').hidden = false; }
@@ -286,11 +290,11 @@
       }
       S.busy = false;
       if (j.code === 'later' || j.code === 'over' || j.code === 'stopped') { render({ status: j.code, next: j.next, gone: S.gone }); return; }
-      setBtn('spin', true);
+      setBtn('spin', true); lights('idle');
       if (j.code === 'busy') { msg(BUSY); return; }
       msg('that didn\'t work. <button type="button" id="retry2">try again</button>');
     }).catch(function (e) {
-      S.busy = false; setBtn('spin', true);
+      S.busy = false; setBtn('spin', true); lights('idle');
       msg(e && e.code === 'busy' ? BUSY : 'can\'t reach us. check your connection and try again.');
     });
   }
