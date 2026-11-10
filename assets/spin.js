@@ -6,7 +6,8 @@
   var LIVE = 'https://gotcha-spin.long-fog-ae60.workers.dev', STAGING = 'https://gotcha-spin-staging.long-fog-ae60.workers.dev';
   var API = (location.protocol === 'file:' || /(^|[?&])api=staging(&|$)/.test(location.search)) ? STAGING : LIVE;
   var VOUCHER_URL = 'https://gotchamatcha2025.github.io/spin/v/#';   // what the voucher QR opens (the staff scan, from 15 Nov)
-  var KEY_DEV = 'gm-spin-device', KEY_V = 'gm-spin-voucher';
+  // a test spin on staging is kept apart, so it can never show up later as this phone's real voucher
+  var SUFFIX = API === STAGING ? '-staging' : '', KEY_DEV = 'gm-spin-device' + SUFFIX, KEY_V = 'gm-spin-voucher' + SUFFIX;
 
   // the prizes, in the wheel's words. per = chance per 1,000 spins (the server's numbers; shown in the footer and on the rules page)
   var P = {
@@ -144,7 +145,7 @@
     else { setBtn('spins are closed', false); msg(''); }
   }
   function load() {
-    setBtn('…', false);
+    setBtn('…', false); drawWheel();   // the wheel shows at once, even before the server answers on slow mall wi-fi
     var cached = store.get(KEY_V);
     if (cached) { try { var v = JSON.parse(cached); drawWheel(); turnTo(v.prize, false); showVoucher(v, false); } catch (e) { /* ignore a broken copy */ } }
     post('/state', S.device ? { device: S.device } : {}).then(function (st) {
