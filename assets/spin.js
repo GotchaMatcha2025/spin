@@ -208,12 +208,12 @@
     store.set(KEY_V, JSON.stringify(v));
     $('go').hidden = true; msg('');
     var el = $('voucher');
-    el.innerHTML = '<img class="di" src="' + (window.SPIN_ICE || 'assets/img/iced-drink-cream.webp') + '" alt="">' +
-      '<p class="t">gotcha!</p><p class="r' + (v.prize === 'one' ? ' n' : '') + '">' + esc(p.name) + '</p><p class="h">' + esc(p.how) + '</p>' +
+    // owner ~04:30: no doodle, no "on any drink you buy", few words (the conditions stay on the rules page)
+    el.innerHTML = '<p class="t">gotcha!</p><p class="r' + (v.prize === 'one' ? ' n' : '') + '">' + esc(p.name) + '</p>' +
       '<div class="qr">' + qrSvg(VOUCHER_URL + v.token) + '</div>' +
       '<p class="code" aria-label="voucher code">' + esc(v.code) + '</p>' +
-      '<p class="shot">screenshot this now. it\'s your voucher.</p>' +
-      '<p class="when">use at woodleigh or jurong point,<br><span class="n">sun 15 – sun 29 nov</span>. one per cup.</p>' +
+      '<p class="shot">screenshot this!</p>' +
+      '<p class="when">woodleigh or jurong point · <span class="n">15–29 nov</span></p>' +
       (FAKE ? '<p class="test">mock-up: not a real voucher</p><button class="again" type="button" id="again">spin again (mock-up only)</button>'
         : API === STAGING ? '<p class="test">test voucher, not valid</p>' : '');
     el.hidden = false; $('club').hidden = false;
