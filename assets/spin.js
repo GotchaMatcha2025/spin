@@ -194,7 +194,8 @@
   }
   function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
   function msg(html) { $('msg').innerHTML = html || ''; }
-  function setBtn(text, enabled) { var b = $('go'); b.textContent = text; b.disabled = !enabled; b.hidden = false; b.classList.toggle('pulse', !!enabled && !reduce); }
+  function setBtn(text, enabled) { var b = $('go'); b.innerHTML = esc(text).replace(/\d+/g, '<span class="n">$&</span>');   // figures in the phone font
+    b.disabled = !enabled; b.hidden = false; b.classList.toggle('pulse', !!enabled && !reduce); }
   var BUSY = 'lots of spins on this wi-fi. turn off wi-fi, then tap spin.';
 
   // ---------- the voucher ----------
